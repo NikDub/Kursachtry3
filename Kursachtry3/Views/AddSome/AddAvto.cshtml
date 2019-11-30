@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "AddAvto";
+    @model Kursachtry3.Models.ViewModel.AvtoViewModel
+}
+
+<h2>AddAvto</h2>
+
+<div class="content jumbotron">
+    @using (Html.BeginForm("AddAvto", "AddSome", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="validation" asp-validation-summary="All" />
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label for="inputNamder" class="col-sm-2 col-form-label">Namber</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputBrand" class="col-sm-2 col-form-label">Brand</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputColor" class="col-sm-2 col-form-label">Color</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputInfor" class="col-sm-2 col-form-label">Spaciousness</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputYear" class="col-sm-2 col-form-label">Release</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputDepartment" class="col-sm-2 col-form-label">Department</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputcancellation" class="col-sm-2 col-form-label">Cancellatted</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputImage" class="col-sm-2 col-form-label">Image</label><br />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row ">
+                    <input type="text" class="form-control" id="inputNamder" asp-for="namber">
+                </div>
+                <div class="input-group form-group row" style="width:auto;">
+                    @foreach (var i in Model.brandlist)
+                    {
+                        i.name = i.manufacturer.name + " " + i.name;
+                    }
+                    @Html.DropDownList("brandl", new SelectList(Model.brandlist, "brand_key", "name"), new { @class = "custom-select" })
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" value="AddBrand" name="action">Add Brand</button>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <input type="text" class="form-control" id="inputColor" asp-for="color">
+                </div>
+                <div class="form-group row ">
+                    <input type="number" class="form-control" id="inputInfor" asp-for="additional_info">
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" id="inputYear" asp-for="year_of_release">
+                </div>
+                <div class="form-group row ">
+                    @Html.DropDownList("depart", new SelectList(Model.departmass, "Department_Key", "name"), new { @class = "custom-select" })
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" id="inputYearcal" asp-for="cancelletion_date">
+                </div>
+                <div class="form-group row ">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" accept="image/*,image/jpeg" asp-for="imageget">
+                        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                    <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Save Change" name="action" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row ">
+                    <label for="OutputNewImage" class="col-sm-3 col-form-label">Image</label>
+                    <div>
+                        <img id="image" src="~/images/no_image.jpg" alt="" style='width:300px; height: 220px; position:absolute;' />
+                        <img id="image" src="#" alt="" style='width:300px; height: 220px;' />
+                    </div>
+                </div>
+            </div>
+     </div>
+    }
+</div>

@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "AddDriverToAvto";
+    @model Kursachtry3.Models.ViewModel.AvtoWorkerViewModel
+}
+
+<h2>AddDriverToAvto</h2>
+
+<form asp-antiforgery="true" method="post">
+    <div class="content jumbotron">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label for="inputWorker" class="col-sm col-form-label">Worker</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputDate" class="col-sm col-form-label">Date start</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputDate2" class="col-sm col-form-label">Date end</label><br />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row input-group" style="width:auto;">
+                    <input list="manufacturer-list" class="form-control" name="workers">
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-secondary" href="/AddSome/AddDriver/@Model.Avto_Key">Add Driver</a>
+                    </div>
+                    <datalist id="manufacturer-list">
+                        @{
+                            foreach (var i in Model.workersin)
+                            {
+                                <option value="@i.worker.fullname">@i.worker.fullname</option>
+                            }
+                        }
+                    </datalist>
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" id="inputdate" asp-for="date_start">
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" id="inputdate2" asp-for="date_end">
+                </div>
+                    <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                    <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Save Change" name="action" />
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "AddDriver";
+    @model Kursachtry3.Models.ViewModel.AddWorker
+}
+
+<h2>AddDriver</h2>
+
+<form asp-antiforgery="true" method="post">
+    <div class="content jumbotron">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label for="inputfullname" class="col-sm col-form-label">Full Name</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputage" class="col-sm col-form-label">Age</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputnamber" class="col-sm col-form-label">Namber</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputDataStart" class="col-sm col-form-label">Data Start</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputDataEnd" class="col-sm col-form-label">Data End</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputDepartment" class="col-sm col-form-label">Department</label><br />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row ">
+                    <input type="text" class="form-control" id="inputbrandname" asp-for="fullname">
+                </div>
+                <div class="form-group row ">
+                    <input type="number" class="form-control" id="inputbrandname" asp-for="age">
+                </div>
+                <div class="form-group row ">
+                    <input type="tel" class="form-control" id="inputbrandname" asp-for="namber">
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" id="inputbrandname" asp-for="date_start">
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" id="inputbrandname" asp-for="date_end">
+                </div>
+                <div class="form-group row ">
+                    @Html.DropDownList("depart", new SelectList(Model.departmentsmass, "Department_Key", "name"), new { @class = "custom-select" })
+                </div>
+                <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Add Driver" name="action" />
+            </div>
+        </div>
+    </div>
+</form>

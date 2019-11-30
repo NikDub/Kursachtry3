@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewData["Title"] = "AutoShow";
+    @model Kursachtry3.Models.ViewModel.AvtoViewModel
+}
+
+
+<div class="container jumbotron">
+    <h2> @Model.namber</h2>
+    <div class="row">
+        <div class="col-sm">
+            @{ if (Model.image_byte == null)
+                {
+                    <img src="~/images/no_image.jpg" style='width:300px; height: 220px; position: absolute;' />
+                }
+                else
+                {
+                    @Html.Raw("<img style='width:300px; height: 220px; position: absolute;' src=\"data:image/jpeg;base64,"
+         + Convert.ToBase64String(Model.image_byte) + "\" />")
+                }
+                if (Model.when_sell != null)
+                {
+                    <img src="~/images/sold_out.png" class="imaghidde" style='width:150px; height: auto; position: absolute;' />
+                }
+                else if (Model.when_cancellation != null)
+                {
+                    <img src="~/images/cancelled.png" class="imaghidde" style='width:150px; height: auto; position: absolute;' />
+                }
+            }
+        </div>
+        <div class="col-sm blockquote">
+            <p class="mb-2">Namber: @Model.namber</p>
+            <p class="mb-2">Brand: @Model.brand.name</p>
+            <p class="mb-2">Color: @Model.color</p>
+            <p class="mb-2">Spaciousness: @Model.additional_info</p>
+            <p class="mb-2">Production date: @Model.year_of_release</p>
+            <p class="mb-2">Type: @Model.brand.type_of_avto.name</p>
+        </div>
+        <div class="col-sm blockquote">
+            <p class="mb-2">Department:  @Model.department.name</p>
+            <p class="mb-2">Date added: @Model.receipt_date</p>
+            <p class="mb-2">Write-off date: @Model.cancelletion_date</p>
+            <br />
+            @{
+                if (Model.when_cancellation == null && Model.when_sell == null)
+                {
+                    <form asp-antiforgery="true" method="post" action="/Cancellation/CancelAvto">
+                        <input type="hidden" name="Id_sold" value="@Model.Avto_Key" />
+                        <input type="submit" class="btn btn-outline-danger" style="font-weight:700; float:right;" value="Sold or cancellation" name="action" />
+                    </form>
+                    <form asp-antiforgery="true" method="post" action="/Edit/EditAvto">
+                        <input type="hidden" name="Id_edit" value="@Model.Avto_Key" />
+                        <input type="submit" class="btn btn-outline-warning" style="font-weight:700; float:right;" value="Edit" name="action" />
+                    </form>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <h5 class="nav-link active" id="Drivers-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Drivers  
+        </h5>
+
+    </li>
+    <li class="nav-item">
+        <h5 class="nav-link" id="Ways-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Ways
+        </h5>
+    </li>
+    <li class="nav-item">
+        <h5 class="nav-link" id="Repairs-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+            Repairs
+        </h5>
+    </li>
+    <li class="nav-item">
+        <button type="button" class="btn nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/AddSome/AddDriverToAvto/@Model.Avto_Key">Add Driver</a>
+            <a class="dropdown-item" href="/AddSome/AddWayToAvto/@Model.Avto_Key">Add Way</a>
+            <a class="dropdown-item" href="/AddSome/AddRepairToAvto/@Model.Avto_Key">Add Repair</a>
+        </div>
+    </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="Drivers-tab">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Fullname</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Start date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var i in Model.avto_worker)
+                    {
+                        <tr>
+                            <td>@i.work_data.worker.fullname</td>
+                            <td>@i.work_data.worker.age</td>
+                            <td>@i.work_data.date_start</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="Ways-tab">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Start point</th>
+                    <th scope="col">End point</th>
+                    <th scope="col">Time in way</th>
+                    <th scope="col">Lenght</th>
+                    <th scope="col">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var i in Model.avto_worker)
+                    {
+                        @foreach (var ui in i.divisions)
+                        {
+                            <tr>
+                                <td>@ui.way.name</td>
+                                <td>@ui.way.start_point</td>
+                                <td>@ui.way.end_point</td>
+                                <td>@ui.way.time_in_way</td>
+                                <td>@ui.way.lenght</td>
+                                <td>@ui.way.cost</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="Repairs-tab">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Worker</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Repair</th>
+                    <th scope="col">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var i in Model.repairs)
+                    {
+                        <tr>
+                            <td>@i.work_data.worker.fullname</td>
+                            <td>@i.date</td>
+                            <td>@i.type_of_repair.name</td>
+                            <td>@i.type_of_repair.cost</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

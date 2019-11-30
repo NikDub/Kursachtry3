@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "AddBrand";
+    @model Kursachtry3.Models.ViewModel.BrandViewModel
+}
+
+<h2>Add Menu Brand</h2>
+<form asp-antiforgery="true" method="post">
+    <div class="content jumbotron">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label for="inputbrandname" class="col-sm col-form-label">Name</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputBody" class="col-sm col-form-label">Body type</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputExpenses" class="col-sm col-form-label">Expenses</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputManufacturer" class="col-sm col-form-label">Manufacturer</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputType" class="col-sm col-form-label">Type of avto</label><br />
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <input type="text" class="form-control" id="inputbrandname" asp-for="name">
+                </div>
+                <div class="form-group row ">
+                    <input type="text" class="form-control" id="inputBody" asp-for="body_type">
+                </div>
+                <div class="form-group row ">
+                    <input type="number" class="form-control" id="inputExpenses" asp-for="expenses">
+                </div>
+                <div class="form-group row ">
+                    <input list="manufacturer-list" class="form-control" name="manufact">
+
+                    <datalist id="manufacturer-list">
+                        @{
+                                            foreach (var i in Model.manufacturermass)
+                            {
+                                <option value="@i.name">@i.name</option>
+                            }
+                        }
+                    </datalist>
+                </div>
+                <div class="form-group row ">
+                    <input list="type-list" class="form-control" name="type">
+
+                    <datalist id="type-list">
+                        @{
+                            foreach (var i in Model.typemass)
+                            {
+                                <option value="@i.name"></option>
+                            }
+                        }
+                    </datalist>
+                </div>
+                <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Add Brand" name="action" />
+            </div>
+        </div>
+    </div>
+</form>

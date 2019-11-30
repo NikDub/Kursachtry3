@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "AddWay";
+    @model Kursachtry3.Models.ViewModel.AddWay
+}
+
+<h2>AddWay</h2>
+
+<form asp-antiforgery="true" method="post">
+    <div class="content jumbotron">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label class="col-sm col-form-label">Name</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label class="col-sm col-form-label">Lenght</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label class="col-sm col-form-label">Time in way</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label class="col-sm col-form-label">Cost</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label class="col-sm col-form-label">Start point</label><br />
+                </div> 
+                <div class="form-group row ">
+                    <label class="col-sm col-form-label">End point</label><br />
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="form-group row ">
+                    <input type="text" class="form-control" asp-for="name">
+                </div>
+                <div class="form-group row ">
+                    <input type="number" class="form-control" asp-for="lenght">
+                </div>
+                <div class="form-group row ">
+                    <input type="time" class="form-control" asp-for="time_in_way">
+                </div>
+                <div class="form-group row ">
+                    <input type="number" class="form-control" asp-for="cost">
+                </div>
+                <div class="form-group row ">
+                    <input type="text" class="form-control" asp-for="start_point">
+                </div>
+                <div class="form-group row ">
+                    <input type="text" class="form-control" asp-for="end_point">
+                </div>
+                <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Add New Way" name="action" />
+            </div>
+        </div>
+    </div>
+</form>

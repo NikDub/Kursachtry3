@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "AddRepair";
+    @model Kursachtry3.Models.ViewModel.AddRepair
+}
+
+<h2>AddRepair</h2>
+
+<form asp-antiforgery="true" method="post">
+    <div class="content jumbotron">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label for="inputbrandname" class="col-sm col-form-label">Name Repair</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputBody" class="col-sm col-form-label">Cost</label><br />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group row ">
+                    <input type="text" class="form-control" id="inputbrandname" asp-for="name">
+                </div>
+                <div class="form-group row ">
+                    <input type="number" class="form-control" id="inputBody" asp-for="cost">
+                </div>
+                <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Add Repair" name="action" />
+            </div>
+        </div>
+    </div>
+</form>

@@ -5,28 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Kursachtry3.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kursachtry3.Controllers
 {
     public class HomeController : Controller
     {
+        private BDModel.AvtoModel _context;
+
+        public HomeController(BDModel.AvtoModel context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var avtos = _context.avtoes.Where(e => e.when_cancellation == null && e.when_sell==null).ToList();
+            if (avtos == null)
+            {
+                return Redirect("/shared/errorpage");
+            }
+            return View(avtos);
         }
 
-        public IActionResult About()
+        [HttpPost]
+        public IActionResult Index(int Id)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return RedirectToAction("ShowAvto", "Shows", new { id = Id });
         }
 
         public IActionResult Privacy()

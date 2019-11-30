@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "AddWayToAvto";
+    @model Kursachtry3.Models.ViewModel.AddWayViewModel
+}
+
+<h2>AddWayToAvto</h2>
+
+<form asp-antiforgery="true" method="post">
+    <div class="content jumbotron">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="form-group row ">
+                    <label for="inputway" class="col-sm col-form-label">Way</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputdatestart" class="col-sm col-form-label">Date Start</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputdateend" class="col-sm col-form-label">Date End</label><br />
+                </div>
+                <div class="form-group row ">
+                    <label for="inputFullname" class="col-sm col-form-label">Driver</label><br />
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="form-group row input-group" style="width:auto;">
+                    @Html.DropDownList("ways", new SelectList(Model.ways, "Ways_Key", "name"), new { @class = "custom-select" })
+                    <div class="input-group-append">
+                        <a class="btn btn-outline-secondary" href="/AddSome/AddWay/@Model.Avto_Key">Add New Way</a>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" asp-for="date_start">
+                </div>
+                <div class="form-group row ">
+                    <input type="date" class="form-control" asp-for="date_end">
+                </div>
+                <div class="form-group row ">
+                    <input list="type-list" class="form-control" name="worker">
+                    <datalist id="type-list">
+                        @{
+                            foreach (var i in Model.work_Datas)
+                            {
+                                <option value="@i.worker.fullname"></option>
+                            }
+                        }
+                    </datalist>
+                </div>
+                <input type="hidden" class="form-control" id="IdKey" asp-for="Avto_Key">
+                <input type="submit" class="btn btn-success" style="font-weight:700; float:right;" value="Add Way" name="action" />
+            </div>
+        </div>
+    </div>
+</form>

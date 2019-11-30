@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "ShowsSoldAvto";
+    @model IEnumerable<Kursachtry3.BDModel.avto>
+}
+
+<h2>ShowsSoldAvto</h2>
+
+<div class="row">
+    @{ foreach (var i in Model)
+        {
+
+            <div class="col-sm-4" style="margin-bottom: 15px;">
+                <div class="card-body">
+                    <div class="card">
+                        @{ if (i.image_byte == null)
+                            {
+                                <img src="~/images/no_image.jpg" style='width:100%; height: 220px;' />
+                            }
+                            else
+                            {
+                                @Html.Raw("<img style='width:100%; height: 220px;' src=\"data:image/jpeg;base64,"
+                                           + Convert.ToBase64String(i.image_byte) + "\" />")
+                            }
+                            if (i.when_sell != null)
+                            {
+                                <img src="~/images/sold_out.png" class="imaghidde" style='width:150px; height: auto; position: absolute; ' />
+                            }
+                            else if (i.when_cancellation != null)
+                            {
+                                <img src="~/images/cancelled.png" class="imaghidde" style='width:150px; height: auto; position: absolute;' />
+                            }
+                        }
+                        <div class="card-body">
+                            <H2 class="card-text">@i.namber</H2>
+                            <form asp-antiforgery="true" method="post">
+                                <input type="hidden" name="Id" value="@i.Avto_Key" />
+                                <input type="submit" class="btn btn-primary" style="font-weight:700; float:right;" value="Browse" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div class="col-sm-4" style="margin-bottom: 15px;">
+            <div class="card-body">
+                <div class="card">
+                    <img src="~/images/add.jpg" style='width:100%; height: 220px;' />
+                    <div class="card-body">
+                        <p class="card-text">Add Avto</p>
+                        <form asp-antiforgery="true" method="post" action="/AddSome/AddAvto">
+                            <input type="submit" class="btn btn-warning" style="font-weight:700; float:right;" value="Add Avto" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
