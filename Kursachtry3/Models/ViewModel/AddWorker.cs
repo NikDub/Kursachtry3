@@ -17,6 +17,8 @@ namespace Kursachtry3.Models.ViewModel
         public string fullname { get; set; }
         public int? age { get; set; }
         public string namber { get; set; }
+        public int work_data_key { get; set; }
+
         public IEnumerable<profession> professionsmass { get; set; }
         public IEnumerable<department> departmentsmass { get; set; }
     }
